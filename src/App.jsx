@@ -3,20 +3,34 @@ import logo from "./logo.svg";
 import "./App.css";
 import ReactMapGL, { Marker } from "react-map-gl";
 import axios from "axios";
-import "../public/countries.json";
+import countries from "./countries.json";
 
-const Zone = ({ viewport }) => {
+const Zone = () => {
   return (
-    <Marker longitude={85} latitude={23}>
-      <div
-        style={{
-          backgroundColor: "rgba(255,0,0,0.5)",
-          height: "100px",
-          width: "100px",
-          borderRadius: "50%",
-        }}
-      ></div>
-    </Marker>
+    <>
+      {countries.map((ele) => {
+        console.log(ele);
+        if (
+          ele.latlng[1] > 175 ||
+          ele.latlng[0] > 85 ||
+          ele.latlng[1] < -175 ||
+          ele.latlng[0] < -85
+        )
+          return null;
+        return (
+          <Marker longitude={ele.latlng[1]} latitude={ele.latlng[0]}>
+            <div
+              style={{
+                backgroundColor: "rgba(255,0,0,0.5)",
+                height: "10px",
+                width: "10px",
+                borderRadius: "50%",
+              }}
+            ></div>
+          </Marker>
+        );
+      })}
+    </>
   );
 };
 
@@ -50,7 +64,7 @@ const Map = () => {
       {...viewport}
       onViewportChange={(nextView) => setViewport(nextView)}
     >
-      <Zone viewport={viewport} />
+      <Zone />
       <Marker
         draggable={true}
         onDragEnd={onMarkerDrag}
