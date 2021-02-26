@@ -2,8 +2,10 @@ import React, { useState, useCallback } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import ReactMapGL, { Marker } from "react-map-gl";
+import axios from "axios";
+import "../public/countries.json";
 
-const Zone = () => {
+const Zone = ({ viewport }) => {
   return (
     <Marker longitude={85} latitude={23}>
       <div
@@ -48,7 +50,7 @@ const Map = () => {
       {...viewport}
       onViewportChange={(nextView) => setViewport(nextView)}
     >
-      <Zone draggable />
+      <Zone viewport={viewport} />
       <Marker
         draggable={true}
         onDragEnd={onMarkerDrag}
@@ -69,6 +71,9 @@ const Map = () => {
 };
 
 function App() {
+  axios.get("https://api.covid19api.com/summary").then((res) => {
+    let data = res.data.Countries;
+  });
   return (
     <div>
       <Map />
