@@ -20,7 +20,7 @@
             65
         ], 
         "name": "Afghanistan", 
-        "country_code": "AF", 
+        "country_code": "AF",
         "capital": "Kabul"
     }, 
     {
@@ -28,9 +28,9 @@
             "Africa/Luanda"
         ], 
         "latlng": [
-            -12.5, 
+            -12.5,
             18.5
-        ], 
+        ],
         "name": "Angola", 
         "country_code": "AO", 
         "capital": "Luanda"

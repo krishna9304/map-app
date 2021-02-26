@@ -1,18 +1,22 @@
 import React, { useState, useCallback } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import ReactMapGL, { Marker } from "react-map-gl";
 import axios from "axios";
-import "../public/countries.json";
+import countries from "./countries.json";
 
-const Zone = ({ viewport }) => {
+const Zone = ({ zoom, lat, lon }) => {
   return (
-    <Marker longitude={85} latitude={23}>
+    <Marker
+      longitude={lat}
+      latitude={lon}
+      offsetLeft={-(zoom ** 3.14) / 2}
+      offsetTop={-(zoom ** 3.14) / 2}
+    >
       <div
         style={{
           backgroundColor: "rgba(255,0,0,0.5)",
-          height: "100px",
-          width: "100px",
+          height: zoom ** 3.14,
+          width: zoom ** 3.14,
           borderRadius: "50%",
         }}
       ></div>
@@ -20,27 +24,14 @@ const Zone = ({ viewport }) => {
   );
 };
 
-const Map = () => {
-  let [marker, setMarker] = useState({
-    latitude: 22.8046,
-    longitude: 86.2029,
-  });
-
+const Map = ({ data }) => {
   let [viewport, setViewport] = useState({
-    latitude: 22.8046,
-    longitude: 86.2029,
+    latitude: 0,
+    longitude: 0,
     zoom: 8,
     width: window.innerWidth,
     height: window.innerHeight,
-    pitch: 50,
   });
-
-  let onMarkerDrag = (e) => {
-    setMarker({
-      latitude: e.lngLat[1],
-      longitude: e.lngLat[0],
-    });
-  };
 
   return (
     <ReactMapGL
@@ -50,33 +41,36 @@ const Map = () => {
       {...viewport}
       onViewportChange={(nextView) => setViewport(nextView)}
     >
-      <Zone viewport={viewport} />
-      <Marker
-        draggable={true}
-        onDragEnd={onMarkerDrag}
-        latitude={marker.latitude}
-        longitude={marker.longitude}
-        offsetTop={(viewport.zoom * 5) / 4}
-      >
-        <img
-          draggable={false}
-          height={viewport.zoom * 5}
-          width={viewport.zoom * 5}
-          src="placeholder.png"
-          alt=""
-        />
-      </Marker>
+      {countries.map((ele) => {
+        console.log(ele);
+        if (
+          ele.latlng[1] > 85 ||
+          ele.latlng[0] > 175 ||
+          ele.latlng[1] < -85 ||
+          ele.latlng[0] < -175
+        )
+          return null;
+        return (
+          <Zone zoom={viewport.zoom} lon={ele.latlng[1]} lat={ele.latlng[0]} />
+        );
+      })}
     </ReactMapGL>
   );
 };
 
 function App() {
-  axios.get("https://api.covid19api.com/summary").then((res) => {
-    let data = res.data.Countries;
-  });
+  let [data, setData] = useState([]);
+
+  axios
+    .get("https://api.covid19api.com/summary")
+    .then((res) => {
+      setData(res.data.Countries);
+    })
+    .then(() => {});
+
   return (
     <div>
-      <Map />
+      <Map data={data} />
     </div>
   );
 }
