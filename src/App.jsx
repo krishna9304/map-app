@@ -23,6 +23,8 @@ const Zone = ({ zoom, lat, lon, val }) => {
           width: zoom ** 3.14,
           borderRadius: "50%",
           fontSize: zoom * 3,
+          color: "#fff",
+          boxShadow: "1px 1px 50px rgba(255,0,0,0.7)",
         }}
       >
         {val}
@@ -41,10 +43,13 @@ const Zones = ({ viewport, data }) => {
           currCountry = country;
         }
       });
-      let zoom = ele.TotalConfirmed / 5000000 + viewport.zoom * 1.2;
+      let zoom =
+        (ele.TotalConfirmed > 20000000 ? 20000000 : ele.TotalConfirmed) /
+          5000000 +
+        viewport.zoom * 1.2;
       return (
         <Zone
-          zoom={zoom > 200 ? 200 : zoom}
+          zoom={zoom}
           lat={currCountry.latlng[1]}
           lon={currCountry.latlng[0]}
           val={ele.TotalConfirmed}
