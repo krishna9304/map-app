@@ -54,7 +54,7 @@ const Map = () => {
         onDragEnd={onMarkerDrag}
         latitude={marker.latitude}
         longitude={marker.longitude}
-        offsetTop={viewport.zoom * 5}
+        offsetTop={(viewport.zoom * 5) / 4}
       >
         <img
           draggable={false}
