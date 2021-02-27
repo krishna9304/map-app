@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import ReactMapGL, { Marker } from "react-map-gl";
+import ReactMapGL from "react-map-gl";
 import axios from "axios";
 import Zones from "./components/zones";
+import Loader from "./components/loader";
 
 const Map = ({ data }) => {
   let [viewport, setViewport] = useState({
     latitude: 0,
     longitude: 0,
-    zoom: 8,
+    zoom: 2,
     width: window.innerWidth,
     height: window.innerHeight,
   });
@@ -35,7 +36,7 @@ function App() {
       setData(res.data.Countries);
     });
   }, []);
-  if (!data) return <h1>Loading</h1>;
+  if (!data) return <Loader />;
   return (
     <div>
       <Map data={data} />

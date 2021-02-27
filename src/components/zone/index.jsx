@@ -36,7 +36,7 @@ const Zone = ({ zoom, lat, lon, val }) => {
           boxShadow: "1px 1px 50px rgba(255,0,0,0.7)",
           textAlign: "center",
           textShadow: "2px 2px 10px #000",
-          transitionDuration: "300ms",
+          transitionDuration: "200ms",
         }}
       >
         {over ? `Name : ${val.Country}` : null}

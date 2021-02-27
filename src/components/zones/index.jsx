@@ -7,7 +7,7 @@ const Zones = ({ viewport, data }) => {
     let countryCode = ele.CountryCode;
     let currCountry = null;
     countries.forEach((country) => {
-      if (country.country_code == countryCode) {
+      if (country.country_code === countryCode) {
         currCountry = country;
       }
     });
