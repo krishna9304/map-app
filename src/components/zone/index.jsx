@@ -34,13 +34,13 @@ const Zone = ({ zoom, lat, lon, val }) => {
           transitionDuration: over ? "200ms" : "0ms",
         }}
       >
-        {over ? `Name : ${val.Country}` : null}
+        {over && zoom > 5 ? `Name : ${val.Country}` : null}
         <br />
         {over ? `Total Confirmed : ${val.TotalConfirmed}` : val.TotalConfirmed}
         <br />
-        {over ? `Total Recovered : ${val.TotalRecovered}` : null}
+        {over && zoom > 5 ? `Total Recovered : ${val.TotalRecovered}` : null}
         <br />
-        {over ? `Total Deaths : ${val.TotalDeaths}` : null}
+        {over && zoom > 5 ? `Total Deaths : ${val.TotalDeaths}` : null}
       </div>
     </Marker>
   );
