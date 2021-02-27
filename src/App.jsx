@@ -23,7 +23,7 @@ const Map = ({ data }) => {
       }}
       reuseMaps={false}
       mapboxApiAccessToken={
-        "pk.eyJ1Ijoibm90LXZhbGlkIiwiYSI6ImNrbGt1M2ZiMTEwaDMycG5tbDhseTY5YmoifQ.j0DITrdH06LMzgQ4A-H5vg"
+        "pk.eyJ1Ijoibm90LXZhbGlkIiwiYSI6ImNrbG53cDgyaTBuOW8ybmw2ZnZiM3Vrc3AifQ.DHkdllimbHI7ZU2Y_Yk4Rg"
       }
       {...viewport}
       onViewportChange={(nextView) => setViewport(nextView)}
