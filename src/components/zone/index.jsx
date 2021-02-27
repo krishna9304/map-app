@@ -18,7 +18,7 @@ const Zone = ({ zoom, lat, lon, val }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: `rgba(255,0,0,${
+          backgroundColor: `rgba(0,255,0,${
             val.TotalConfirmed / 40000000 < 0.5
               ? 0.5
               : val.TotalConfirmed / 40000000
@@ -28,7 +28,7 @@ const Zone = ({ zoom, lat, lon, val }) => {
           borderRadius: "50%",
           fontSize: zoom * 2,
           color: "#fff",
-          boxShadow: "1px 1px 50px rgba(255,0,0,0.7)",
+          boxShadow: "1px 1px 50px rgba(0,255,0,0.7)",
           textAlign: "center",
           textShadow: "2px 2px 10px #000",
           transitionDuration: over ? "200ms" : "0ms",
