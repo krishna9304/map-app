@@ -1,36 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import ReactMapGL from "react-map-gl";
 import axios from "axios";
-import Zones from "./components/zones";
 import Loader from "./components/loader";
-
-const Map = ({ data }) => {
-  let [viewport, setViewport] = useState({
-    latitude: 0,
-    longitude: 0,
-    zoom: 2,
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
-
-  return (
-    <ReactMapGL
-      mapStyle={"mapbox://styles/mapbox/dark-v9"}
-      scrollZoom={{
-        speed: 0.001,
-        smooth: false,
-      }}
-      mapboxApiAccessToken={
-        "pk.eyJ1Ijoibm90LXZhbGlkIiwiYSI6ImNrbGt1M2ZiMTEwaDMycG5tbDhseTY5YmoifQ.j0DITrdH06LMzgQ4A-H5vg"
-      }
-      {...viewport}
-      onViewportChange={(nextView) => setViewport(nextView)}
-    >
-      <Zones viewport={viewport} data={data} />
-    </ReactMapGL>
-  );
-};
+import Map from "./components/map";
 
 function App() {
   let [data, setData] = useState(null);
