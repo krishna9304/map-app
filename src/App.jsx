@@ -21,7 +21,6 @@ const Map = ({ data }) => {
         speed: 0.001,
         smooth: false,
       }}
-      reuseMaps={false}
       mapboxApiAccessToken={
         "pk.eyJ1Ijoibm90LXZhbGlkIiwiYSI6ImNrbG53cDgyaTBuOW8ybmw2ZnZiM3Vrc3AifQ.DHkdllimbHI7ZU2Y_Yk4Rg"
       }

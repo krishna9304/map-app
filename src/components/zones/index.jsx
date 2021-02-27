@@ -17,11 +17,11 @@ const Zones = ({ viewport, data }) => {
       viewport.zoom * 1.2;
     return (
       <Zone
-        key={currCountry.country_code}
         zoom={zoom}
         lat={currCountry.latlng[1]}
         lon={currCountry.latlng[0]}
         val={ele}
+        key={currCountry.country_code}
       />
     );
   });
