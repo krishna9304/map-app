@@ -4,12 +4,7 @@ import { Marker } from "react-map-gl";
 const Zone = ({ zoom, lat, lon, val }) => {
   let [over, setOver] = useState(false);
   return (
-    <Marker
-      longitude={lat}
-      latitude={lon}
-      // offsetLeft={-(zoom ** 3.14 + (over ? zoom * 5 : 0)) / 2}
-      // offsetTop={-(zoom ** 3.14 + (over ? zoom * 5 : 0)) / 2}
-    >
+    <Marker longitude={lat} latitude={lon}>
       <div
         onMouseEnter={() => {
           setOver(true);
@@ -36,7 +31,6 @@ const Zone = ({ zoom, lat, lon, val }) => {
           boxShadow: "1px 1px 50px rgba(255,0,0,0.7)",
           textAlign: "center",
           textShadow: "2px 2px 10px #000",
-          transitionDuration: "200ms",
         }}
       >
         {over ? `Name : ${val.Country}` : null}
