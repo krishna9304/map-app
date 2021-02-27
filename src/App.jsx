@@ -16,6 +16,7 @@ const Map = ({ data }) => {
 
   return (
     <ReactMapGL
+      mapStyle={"mapbox://styles/mapbox/dark-v9"}
       scrollZoom={{
         speed: 0.001,
         smooth: false,
