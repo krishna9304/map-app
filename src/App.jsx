@@ -1,15 +1,27 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import ReactMapGL, { Marker } from "react-map-gl";
 import axios from "axios";
 import countries from "./countries.json";
 
-const Zone = () => {
+const Zone = ({ data, viewport }) => {
+  let [radius, setRadius] = useState(10);
+  let setRadiusForOne = (ele) => {
+    for (let i = 0; i < countries.length; i++) {
+      if (ele.country_code === data[i].CountryCode) {
+        setRadius(
+          (data[i].TotalConfirmed > 20000000 ? 20000000 : ele.TotalConfirmed) /
+            5000000 +
+            viewport.zoom * 1.2
+        );
+      }
+    }
+  };
   return (
     <>
       {countries.map((ele) => {
-        console.log(ele);
+        setRadiusForOne(ele);
         if (
           ele.latlng[1] > 175 ||
           ele.latlng[0] > 85 ||
@@ -22,8 +34,8 @@ const Zone = () => {
             <div
               style={{
                 backgroundColor: "rgba(255,0,0,0.5)",
-                height: "10px",
-                width: "10px",
+                height: `${radius}px`,
+                width: `${radius}px`,
                 borderRadius: "50%",
               }}
             ></div>
@@ -34,7 +46,7 @@ const Zone = () => {
   );
 };
 
-const Map = () => {
+const Map = ({ data }) => {
   let [marker, setMarker] = useState({
     latitude: 22.8046,
     longitude: 86.2029,
@@ -64,7 +76,7 @@ const Map = () => {
       {...viewport}
       onViewportChange={(nextView) => setViewport(nextView)}
     >
-      <Zone />
+      <Zone data={data} viewport={viewport} />
       <Marker
         draggable={true}
         onDragEnd={onMarkerDrag}
@@ -85,12 +97,15 @@ const Map = () => {
 };
 
 function App() {
-  axios.get("https://api.covid19api.com/summary").then((res) => {
-    let data = res.data.Countries;
-  });
+  let [data, setData] = useState(null);
+  useEffect(() => {
+    axios.get("https://api.covid19api.com/summary").then((res) => {
+      setData(res.data.Countries);
+    });
+  }, []);
   return (
     <div>
-      <Map />
+      <Map data={data} />
     </div>
   );
 }
